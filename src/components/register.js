@@ -1,38 +1,101 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import '../App.css'
+export default function Register() {
+  // initial state
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [register, setRegister] = useState(false);
+  const currentHost = `${window.location.protocol}//${window.location.hostname}`
+  const navigate = useNavigate();
 
-export default function SignUpPage() {
+  const handleSubmit = (e) => {
+    // prevent the form from refreshing the whole page
+    e.preventDefault();
 
-    return (
-        <div className="text-center m-5-auto">
-            <h2>Join us</h2>
-            <h5>Create your personal account</h5>
-            <form action="/home">
-                <p>
-                    <label>Username</label><br/>
-                    <input type="text" name="first_name" required />
-                </p>
-                <p>
-                    <label>Email address</label><br/>
-                    <input type="email" name="email" required />
-                </p>
-                <p>
-                    <label>Password</label><br/>
-                    <input type="password" name="password" requiredc />
-                </p>
-                <p>
-                    <input type="checkbox" name="checkbox" id="checkbox" required /> <span>I agree all statements in <a href="https://google.com" target="_blank" rel="noopener noreferrer">terms of service</a></span>.
-                </p>
-                <p>
-                    <button id="sub_btn" type="submit">Register</button>
-                </p>
-            </form>
-            <footer>
-                <p><Link to="/">Back to Homepage</Link>.</p>
-            </footer>
+    // axios configurations
+    const configuration = {
+      method: "post",
+      url: `${currentHost}:5001/users/create`,
+      data: {
+        username,
+        email,
+        password
+      },
+    };
+
+    // trigger the API call
+    axios(configuration)
+      .then((result) => {
+        setRegister(true);
+        alert("Registered successfully");
+        navigate("/login");
+      })
+      .catch((error) => {
+        error = new Error();
+      });
+  };
+
+  return (
+    <>
+      <h2>Register</h2>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+       {/* user-name */}
+       <Form.Group controlId="userNameCtl">
+          <Form.Label>User Name</Form.Label>
+          <Form.Control
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="Enter user name"
+          />
+        </Form.Group>
+        {/* email */}
+        <Form.Group controlId="emailCtl">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+          />
+        </Form.Group>
+
+        {/* password */}
+        <Form.Group controlId="passwordCtl">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </Form.Group>
+
+        {/* submit button */}
+        <div class="mt-2">
+        <Button
+          variant="primary"
+          type="submit"
+          onClick={(e) => handleSubmit(e)}
+        >
+          Register
+        </Button>
         </div>
-    )
 
+        {/* display success message */}
+        {register ? (
+          <p className="text-success">You Are Registered Successfully</p>
+        ) : (
+          <p className="text-danger">You Are Not Registered</p>
+        )}
+      </Form>
+    </>
+  );
 }

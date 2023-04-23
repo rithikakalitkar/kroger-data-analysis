@@ -1,26 +1,48 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/login";
+import Register from "./components/register";
+import ForgotPassword from "./components/forgotPassword";
+import Home from "./components/home";
+import Dashboard from "./components/dashboard";
+import DashboardWithCustomHNum from "./components/dashboard_using_custom_hNum";
+import { Container, Col, Row } from "react-bootstrap";
 
-import LandingPage from './components/landing'
-import LoginPage from './components/login'
-import RegisterPage from './components/register'
-import ForgetPasswordPage from './components/forgotPassword'
-import HomePage from './components/home'
-
-import './App.css'
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
-    return (
-        <Router>
-            <div>
-                <Routes>
-                    <Route exact path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/forget-password" element={<ForgetPasswordPage />} />
-                    <Route path="/home" element={<HomePage />}/>
-                </Routes>
-            </div>
-        </Router>
-    )
+  return (
+    <Container>
+      <Row>
+        <Col className="text-center">
+          <h1>Kroger Data Analysis</h1>
+          {/* <section id="navigation">
+            <a href="/home">Home</a>
+            <a href="/login">Login</a>
+            New user? <a href="/register">Register</a>
+          </section> */}
+        </Col>
+      </Row>
+
+      {/* create routes here */}
+      <Router>
+        <div>
+          <Routes>
+            <Route exact path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forget-password" element={<ForgotPassword />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboardCustHNum"
+              element={<DashboardWithCustomHNum />}
+            />
+            <Route path="/upload" element={<Home />} />
+          </Routes>
+        </div>
+      </Router>
+    </Container>
+  );
 }

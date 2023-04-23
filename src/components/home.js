@@ -34,6 +34,9 @@ export default function Home() {
           <ListGroup.Item action href="/upload">
             Upload Custom Data Set
           </ListGroup.Item>
+          <ListGroup.Item action href="/demoFactDashboard">
+            Demographic Factors
+          </ListGroup.Item>
         </ListGroup>
       </div>
       {/* <Button variant="secondary" onClick={(e) => navigate("/")}>

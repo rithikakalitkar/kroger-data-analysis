@@ -6,6 +6,8 @@ import ForgotPassword from "./components/forgotPassword";
 import Home from "./components/home";
 import Dashboard from "./components/dashboard";
 import DashboardWithCustomHNum from "./components/dashboard_using_custom_hNum";
+import CustomDataSetUpload from "./components/custom-data-set-upload";
+import DemographicFactorsDashboard from "./components/demographic_factors_dashboard";
 import { Container, Col, Row } from "react-bootstrap";
 
 import "./App.css";
@@ -39,7 +41,9 @@ export default function App() {
               path="/dashboardCustHNum"
               element={<DashboardWithCustomHNum />}
             />
-            <Route path="/upload" element={<Home />} />
+            <Route path="/upload" element={<CustomDataSetUpload />} />
+            <Route path="/demoFactDashboard" element={<DemographicFactorsDashboard />} />
+            
           </Routes>
         </div>
       </Router>

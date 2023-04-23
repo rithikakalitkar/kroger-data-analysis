@@ -29,7 +29,8 @@
   "scripts": {
     "start-server": "nodemon src/server/server.js --watch server/*",
     "start-react": "react-scripts start",
-    "start": "concurrently \"npm run start-server\" \"npm run start-react\" --kill-others --kill-others-on-fail",
+    "start": "concurrently \"serve -s build\" \"npm run start-server\" --kill-others --kill-others-on-fail",
+    "prestart": "npm install -g serve",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
